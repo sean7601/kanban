@@ -1,0 +1,85 @@
+:root {
+  --bg: #f8f9fb;
+  --card-bg: #fff;
+  --accent: #3f51b5;
+  --accent-light: #e8eaf6;
+  --text: #333;
+  --text-light: #666;
+  --border: #ddd;
+  --radius: 8px;
+  --shadow: 0 2px 6px rgba(0,0,0,0.08);
+  --danger: #d93025;
+  --danger-hover: #b3251c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--accent);
+  color: #fff;
+  padding: 12px 20px;
+  box-shadow: var(--shadow);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.controls button {
+  margin-left: 10px;
+  background: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow);
+  transition: background 0.2s;
+}
+.controls button:hover {
+  background: var(--accent-light);
+}
+.controls .secondary {
+  background: #f1f2f6;
+}
+.controls .secondary:hover {
+  background: #e3e6ef;
+}
+
+.view.hidden { display: none; }
+.hidden { display: none !important; }
+
+button { font-family: inherit; }
+
+.icon-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-light);
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+.icon-btn:hover {
+  background: #f1f2f6;
+  color: var(--text);
+}
+
+.danger {
+  background: var(--danger);
+  color: #fff;
+}
+.danger:hover {
+  background: var(--danger-hover);
+}
+.flex-spacer { flex: 1; }

@@ -1,0 +1,109 @@
+Task Tracker App - Architecture Overview
+========================================
+
+Purpose:
+--------
+A lightweight, offline-capable task tracker with Kanban and Calendar views. 
+All state is stored in localStorage and can also be exported/imported via JSON files. 
+The app runs directly from file:// without a server.
+
+Core Features:
+--------------
+1. Kanban board with three columns (To Do, In Progress, Done)
+   - Drag/drop tasks between columns.
+   - Record automatic timestamp when tasks are created or moved.
+
+2. Task details
+   - Add/edit task title and notes.
+   - Add subtasks with their own deadlines.
+   - Mark subtasks as completed.
+
+3. Deadlines
+   - Set deadlines for tasks and subtasks.
+   - Calendar view shows tasks/subtasks by deadline.
+
+4. Persistence
+   - Auto-save to localStorage after any change.
+   - Export tasks as JSON file (download).
+   - Import tasks from JSON file (upload), with sanitization.
+
+5. Security
+   - Prevent XSS: sanitize all uploaded/entered text to strip HTML/script tags.
+   - Never evaluate or execute uploaded JSON.
+
+UI Layout:
+----------
+- Top Bar:
+  - "Import JSON" button
+  - "Export JSON" button
+  - Switch between Kanban view and Calendar view
+  - <script src="devconsole.js"></script> for debugging overlay
+
+- Kanban View:
+  - Three panels (columns) side by side
+  - Tasks shown as draggable cards
+  - Each card can expand to show details, notes, subtasks
+
+- Calendar View:
+  - Simple month grid
+  - Tasks/subtasks displayed on their due dates
+
+File Structure:
+---------------
+index.html
+  - Main page layout, includes scripts and CSS
+
+styles/
+  - style.css         (base styles, layout, typography)
+  - kanban.css        (styles for Kanban board)
+  - calendar.css      (styles for calendar view)
+  - modal.css         (styles for task/subtask detail modals)
+
+scripts/
+  - app.js            (initialization, global event wiring)
+  - storage.js        (localStorage + import/export JSON logic, sanitization)
+  - kanban.js         (drag/drop, column logic, timestamp tracking)
+  - calendar.js       (calendar rendering and interaction)
+  - task.js           (task/subtask creation, editing, deadlines)
+  - utils.js          (helpers: sanitization, date formatting, file handling)
+
+devconsole.js
+  - Debugging overlay (already included at top of index.html)
+
+Data Model:
+-----------
+tasks = [
+  {
+    id: string (uuid),
+    title: string,
+    notes: string,
+    status: "todo" | "inprogress" | "done",
+    createdAt: timestamp,
+    updatedAt: timestamp,
+    deadline: date (optional),
+    subtasks: [
+      {
+        id: string,
+        title: string,
+        completed: boolean,
+        deadline: date (optional)
+      }
+    ],
+    history: [ { action: string, timestamp: number } ]  // e.g. "moved to done"
+  }
+]
+
+Workflow:
+---------
+- On startup: load from localStorage if available.
+- User can create tasks, drag/drop tasks, add subtasks, set deadlines.
+- Each action updates timestamps and auto-saves state.
+- User can export full state as JSON file.
+- User can import JSON file; data sanitized and merged with current state.
+- Calendar view displays tasks/subtasks by deadline.
+
+Notes:
+------
+- No external servers, everything runs locally.
+- No ES modules or imports; scripts linked in HTML in correct order.
+- Use DOM APIs and vanilla JS only.

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task Tracker</title>
+  <script src="devconsole.js"></script>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/kanban.css">
+  <link rel="stylesheet" href="styles/calendar.css">
+  <link rel="stylesheet" href="styles/modal.css">
+</head>
+<body>
+  <header>
+    <h1>Task Tracker</h1>
+    <div class="controls">
+      <button id="importBtn">Import JSON</button>
+      <button id="exportBtn">Export JSON</button>
+      <button id="kanbanViewBtn">Kanban View</button>
+      <button id="calendarViewBtn">Calendar View</button>
+      <!-- New: global expand/collapse for Kanban subtasks -->
+      <button id="expandAllBtn" class="secondary">Expand All Subtasks</button>
+      <button id="collapseAllBtn" class="secondary">Collapse All Subtasks</button>
+      <input type="file" id="fileInput" style="display:none">
+    </div>
+  </header>
+
+  <main>
+    <!-- Kanban View -->
+    <section id="kanbanView" class="view">
+      <div class="kanban-container">
+        <div class="kanban-column" data-status="todo">
+          <h2>To Do</h2>
+          <div class="task-list" id="todoList"></div>
+          <button class="addTaskBtn" data-status="todo">+ Add Task</button>
+        </div>
+        <div class="kanban-column" data-status="inprogress">
+          <h2>In Progress</h2>
+          <div class="task-list" id="inprogressList"></div>
+          <button class="addTaskBtn" data-status="inprogress">+ Add Task</button>
+        </div>
+        <div class="kanban-column" data-status="done">
+          <h2>Done</h2>
+          <div class="task-list" id="doneList"></div>
+          <button class="addTaskBtn" data-status="done">+ Add Task</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calendar View -->
+    <section id="calendarView" class="view hidden">
+      <div id="calendar"></div>
+    </section>
+  </main>
+
+  <!-- Task Modal -->
+  <div id="taskModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="closeBtn" title="Close">&times;</span>
+      <h2>Edit Task</h2>
+      <label>Title: <input type="text" id="taskTitle"></label>
+      <label>Notes: <textarea id="taskNotes"></textarea></label>
+      <label>Deadline: <input type="date" id="taskDeadline"></label>
+      <h3>Subtasks</h3>
+      <ul id="subtaskList"></ul>
+      <div class="modal-actions">
+        <button id="addSubtaskBtn">+ Add Subtask</button>
+        <span class="flex-spacer"></span>
+        <button id="deleteTaskBtn" class="danger">Delete Task</button>
+        <button id="saveTaskBtn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/utils.js"></script>
+  <script src="scripts/storage.js"></script>
+  <script src="scripts/task.js"></script>
+  <script src="scripts/kanban.js"></script>
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>

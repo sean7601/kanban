@@ -1,0 +1,47 @@
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  padding: 20px;
+}
+
+.calendar-day {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  min-height: 100px;
+  padding: 8px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-day h4 {
+  margin: 0 0 6px 0;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.task-entry {
+  background: var(--accent-light);
+  border-radius: var(--radius);
+  margin: 2px 0;
+  padding: 4px 6px;
+  font-size: 0.75rem;
+  color: var(--text-light);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  /* Added so highlight doesn't cause layout shift */
+  border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Highlight all related items (parent + subtasks) when hovering any entry */
+.task-entry.related-hover {
+  background: #fff3cd;           /* soft amber highlight */
+  border-color: #f1c232;
+  box-shadow: 0 0 0 2px rgba(241, 194, 50, 0.25);
+}
