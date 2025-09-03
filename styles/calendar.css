@@ -34,12 +34,31 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  /* Added so highlight doesn't cause layout shift */
+  /* Keep layout stable when highlighting */
   border: 1px solid transparent;
   transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* Highlight all related items (parent + subtasks) when hovering any entry */
+/* Status colors */
+.task-entry.status-todo {
+  background: #eef2ff;           /* soft blue */
+  border-color: #c7d2fe;
+  color: #374151;
+}
+
+.task-entry.status-inprogress {
+  background: #fff7e6;           /* soft yellow */
+  border-color: #ffd27f;
+  color: #6b4e16;
+}
+
+.task-entry.status-done {
+  background: #e6f7ec;           /* soft green */
+  border-color: #a7e3b8;
+  color: #256c2a;
+}
+
+/* Group hover (overrides status color while active) */
 .task-entry.related-hover {
   background: #fff3cd;           /* soft amber highlight */
   border-color: #f1c232;
