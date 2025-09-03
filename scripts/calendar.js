@@ -19,9 +19,13 @@ function renderCalendar() {
   }
 
   // Helper: create a calendar entry and wire hover to highlight group
-  function makeEntry(text, taskId, titleText) {
+  function makeEntry(text, taskId, titleText, status) {
     const div = document.createElement("div");
     div.className = "task-entry";
+    if (status) {
+      // status is one of: "todo" | "inprogress" | "done"
+      div.classList.add(`status-${status}`);
+    }
     div.textContent = text;
     div.dataset.taskid = taskId;
     div.title = titleText || "Edit task";
@@ -45,11 +49,12 @@ function renderCalendar() {
     // Add tasks & subtasks that have this deadline
     tasks.forEach(t => {
       if (t.deadline === dateStr) {
-        dayDiv.appendChild(makeEntry(t.title, t.id, "Edit task"));
+        dayDiv.appendChild(makeEntry(t.title, t.id, "Edit task", t.status));
       }
       t.subtasks.forEach(st => {
         if (st.deadline === dateStr) {
-          dayDiv.appendChild(makeEntry(`${st.title} (subtask)`, t.id, "Edit parent task"));
+          // Color by parent task status
+          dayDiv.appendChild(makeEntry(`${st.title} (subtask)`, t.id, "Edit parent task", t.status));
         }
       });
     });
